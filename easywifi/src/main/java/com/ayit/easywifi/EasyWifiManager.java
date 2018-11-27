@@ -248,21 +248,21 @@ public class EasyWifiManager extends BroadcastReceiver {
 
                     final List<ScanResult> savedResults = new ArrayList<>();
 
-                    for (WifiConfiguration configuration : configs) {
-                        for (ScanResult result : scanWifiList) {
+                    if (configs != null)
+                        for (WifiConfiguration configuration : configs) {
+                            for (ScanResult result : scanWifiList) {
 //                            log("config_ssid:"+configuration.SSID + " : "+result.SSID + " -> "+(configuration.SSID.replaceAll("\"","").equals(result.SSID)));
-                            if (configuration.SSID.replaceAll("\"", "").equals(result.SSID)) {
-                                savedResults.add(result);
-                                break;
+                                if (configuration.SSID.replaceAll("\"", "").equals(result.SSID)) {
+                                    savedResults.add(result);
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                    log("saved_size:" + configs.size() + " : " + savedResults.size());
+//                    log("saved_size:" + configs.size() + " : " + savedResults.size());
 
 
                     scanWifiList.removeAll(savedResults);
-
 
 
                     Collections.sort(savedResults, new Comparator<ScanResult>() {
@@ -345,25 +345,26 @@ public class EasyWifiManager extends BroadcastReceiver {
 
     /**
      * 是否已保存
+     *
      * @param ssid
      * @return
      */
     public WifiConfiguration isConfiged(String ssid) {
-        return    easyUtils.isExist(ssid);
+        return easyUtils.isExist(ssid);
     }
 
-    private void  connect(final ScanResult result){
+    private void connect(final ScanResult result) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 String ssid = result.SSID;
-                if (isConfiged(ssid)!=null){
-                    easyUtils.connectWifi(result.SSID,null,easyUtils.getWifiCliperType(result));
-                }else{
-                    if (easyUtils.isNonePassword(result)){
+                if (isConfiged(ssid) != null) {
+                    easyUtils.connectWifi(result.SSID, null, easyUtils.getWifiCliperType(result));
+                } else {
+                    if (easyUtils.isNonePassword(result)) {
                         //无密码
-                        easyUtils.connectWifi(result.SSID,null,easyUtils.getWifiCliperType(result));
-                    }else{
+                        easyUtils.connectWifi(result.SSID, null, easyUtils.getWifiCliperType(result));
+                    } else {
                         //需要密码
                     }
                 }
@@ -371,31 +372,31 @@ public class EasyWifiManager extends BroadcastReceiver {
         }).start();
     }
 
-    public void connect(final ScanResult result, final String pwd){
+    public void connect(final ScanResult result, final String pwd) {
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
-                String ssid = result.SSID;
-                if (isConfiged(ssid)!=null){
-                    log("已保存，直接连接");
-                    boolean connect = easyUtils.connectWifi(result.SSID, null, easyUtils.getWifiCliperType(result));
-                    log("connect : "+connect);
-                }else{
-                    if (easyUtils.isNonePassword(result)){
-                        log("无密码，直接连接");
-                        //无密码
-                        easyUtils.connectWifi(result.SSID,null,easyUtils.getWifiCliperType(result));
-                    }else{
-                        log("密码，直接连接");
-                        //需要密码
-                        easyUtils.connectWifi(result.SSID,pwd,easyUtils.getWifiCliperType(result));
-                    }
-                }
+        String ssid = result.SSID;
+        if (isConfiged(ssid) != null) {
+            log("已保存，直接连接");
+            boolean connect = easyUtils.connectWifi(result.SSID, null, easyUtils.getWifiCliperType(result));
+            log("connect : " + connect);
+        } else {
+            if (easyUtils.isNonePassword(result)) {
+                log("无密码，直接连接");
+                //无密码
+                easyUtils.connectWifi(result.SSID, null, easyUtils.getWifiCliperType(result));
+            } else {
+                log("密码，直接连接");
+                //需要密码
+                easyUtils.connectWifi(result.SSID, pwd, easyUtils.getWifiCliperType(result));
+            }
+        }
 //            }
 //        }).start();
     }
 
-    public boolean isNonePassword(ScanResult result){
+    public boolean isNonePassword(ScanResult result) {
         return easyUtils.isNonePassword(result);
     }
 
