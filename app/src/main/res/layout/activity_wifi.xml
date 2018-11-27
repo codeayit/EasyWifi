@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="#0d2331"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".activity.WIfiActivity">
+
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="10%h"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="WIFI设置"
+            android:textColor="@color/white"
+            app:layout_textSizePercent="40%h"
+            android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/iv_wifi_refresh"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="100%h"
+            android:layout_centerVertical="true"
+            app:layout_heightPercent="100%h"
+            app:layout_paddingPercent="15%h"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_wifi_refresh_normal"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/trans"
+            />
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="10%h"
+        android:background="#1a4663"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            app:layout_textSizePercent="3%w"
+            app:layout_paddingLeftPercent="5%w"
+            android:textColor="@color/white"
+            android:text="WLAN"/>
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/sb_wifi"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_heightPercent="60%h"
+            app:layout_marginRightPercent="2%w"
+            app:layout_widthPercent="110%h"/>
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/trans"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_wifis"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#1a4663"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        app:layout_marginPercent="3%h"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@color/white"
+        app:layout_textSizePercent="4%h"
+        app:layout_widthPercent="20%h"
+        app:layout_heightPercent="10%h"
+        android:background="@drawable/selecter_btn_blue"
+        android:text="完成"/>
+
+
+
+</com.zhy.android.percent.support.PercentLinearLayout>

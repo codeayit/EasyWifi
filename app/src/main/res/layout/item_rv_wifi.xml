@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="#1a4663"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_wifiname"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="ximi_1515_5G"
+        android:textColor="@color/white"
+        android:gravity="center_vertical"
+        app:layout_paddingLeftPercent="5%w"
+        app:layout_textSizePercent="3%w"
+        app:layout_heightPercent="8%w"/>
+
+    <ImageView
+        android:id="@+id/iv_wifilock"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="2%w"
+        app:layout_widthPercent="2%w"
+        app:layout_marginRightPercent="2%w"
+        android:src="@drawable/icon_wifilock_white"/>
+
+    <ImageView
+        android:id="@+id/iv_wifilevel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_heightPercent="3%w"
+        app:layout_widthPercent="3%w"
+        app:layout_marginRightPercent="2%w"
+        android:src="@drawable/icon_top_wifi_3"/>
+
+
+
+</com.zhy.android.percent.support.PercentLinearLayout>
