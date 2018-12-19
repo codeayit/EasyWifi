@@ -138,18 +138,6 @@ public class EasyUtils {
         if (!isWifiEnable()) {
             return false;
         }
-//        while (wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLING) {
-//            try {
-//                Thread.currentThread();
-//                Thread.sleep(500);
-//            } catch (InterruptedException e) {
-//
-//            }
-//        }
-//        WifiConfiguration wifiConfig = CreateWifiInfo(ssid, pwd, type);
-//        if (wifiConfig == null) {
-//            return false;
-//        }
         int netId;
         WifiConfiguration tempConig = isExist(ssid);
         if (tempConig != null) {
@@ -163,7 +151,7 @@ public class EasyUtils {
             netId = wifiManager.addNetwork(tempConig);
         }
         Log.d(TAG, tempConig.toString());
-//        wifiManager.disconnect();
+        wifiManager.disconnect();
 //        WifiInfo  wifiInfo = getConnectionInfo();
 //        if(null != wifiInfo){
 //            disconnectWifi(wifiInfo.getNetworkId());
@@ -204,15 +192,12 @@ public class EasyUtils {
         if (tempConfig != null) {
 //            wifiManager.removeNetwork(tempConfig.networkId);
             return tempConfig;
-        }
-
-        if (type == WifiCliperType.WIFICLIPER_NOPASS) // WIFICIPHER_NOPASS
+        } else if (type == WifiCliperType.WIFICLIPER_NOPASS) // WIFICIPHER_NOPASS
         {
-            config.wepKeys[0] = "";
+//            config.wepKeys[0] = "";
             config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-            config.wepTxKeyIndex = 0;
-        }
-        if (type == WifiCliperType.WIFICLIPER_WEP) // WIFICIPHER_WEP
+//            config.wepTxKeyIndex = 0;
+        } else if (type == WifiCliperType.WIFICLIPER_WEP) // WIFICIPHER_WEP
         {
             config.hiddenSSID = true;
             config.wepKeys[0] = "\"" + Password + "\"";
@@ -223,8 +208,7 @@ public class EasyUtils {
             config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
             config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
             config.wepTxKeyIndex = 0;
-        }
-        if (type == WifiCliperType.WIFICLIP_WPA) // WIFICIPHER_WPA
+        } else if (type == WifiCliperType.WIFICLIP_WPA) // WIFICIPHER_WPA
         {
             config.preSharedKey = "\"" + Password + "\"";
             config.hiddenSSID = true;
@@ -236,8 +220,7 @@ public class EasyUtils {
 //            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
 //            config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
             config.status = WifiConfiguration.Status.ENABLED;
-        }
-        if (type == WifiCliperType.WIFICLIP_WPA2) {
+        } else if (type == WifiCliperType.WIFICLIP_WPA2) {
             config.preSharedKey = "\"" + Password + "\"";
             config.hiddenSSID = true;
             config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
