@@ -31,12 +31,15 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'com.yhd.hdmediaplayer:hdmediaplayer:1.0.1'
-    implementation 'com.neovisionaries:nv-websocket-client:2.2'
+//    implementation 'com.yhd.hdmediaplayer:hdmediaplayer:1.0.1'
+//    implementation 'com.neovisionaries:nv-websocket-client:2.2'
     implementation 'com.github.codeayit:AppApi:0160fac089'
     //    implementation 'com.android.support:recyclerview-v7:27.1.1'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
+//    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+//    implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
-    implementation project(':easywifi')
+//    implementation project(':easywifi')
+    implementation 'com.github.codeayit:EasyWifi:a707c4f20e'
+
 }
+

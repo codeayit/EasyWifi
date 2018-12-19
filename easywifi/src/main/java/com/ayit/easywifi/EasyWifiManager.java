@@ -372,6 +372,13 @@ public class EasyWifiManager extends BroadcastReceiver {
         }).start();
     }
 
+    public void removeNetwork(String ssid){
+        WifiConfiguration configed = isConfiged(ssid);
+        if (configed!=null){
+            easyUtils.wifiManager.removeNetwork(configed.networkId);
+        }
+    }
+
     public void connect(final ScanResult result, final String pwd) {
 //        new Thread(new Runnable() {
 //            @Override
