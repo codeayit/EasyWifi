@@ -113,26 +113,26 @@ public class WIfiActivity2 extends BaseActivity implements SwitchButton.OnChecke
             }
 
             @Override
-            public void onConnecting(String ssid) {
-                KLog.d("onConnecting : "+ssid);
+            public void onConnecting(String ssid,String bssid) {
+                KLog.d("onConnecting : "+ssid+" : "+bssid);
                 startAnimation();
             }
 
             @Override
-            public void onAuthenticating(String ssid) {
-                KLog.d("onAuthenticating : "+ssid);
+            public void onAuthenticating(String ssid,String bssid) {
+                KLog.d("onAuthenticating : "+ssid+" : "+bssid);
                 startAnimation();
             }
 
             @Override
-            public void onObtainingIpaddr(String ssid) {
-                KLog.d("onObtainingIpaddr : "+ssid);
+            public void onObtainingIpaddr(String ssid,String bssid) {
+                KLog.d("onObtainingIpaddr : "+ssid+" : "+bssid);
 
             }
 
             @Override
-            public void onConnected(String ssid) {
-                KLog.d("onConnected : "+ssid);
+            public void onConnected(String ssid,String bssid) {
+                KLog.d("onConnected : "+ssid+" : "+bssid);
                 stopAnimation();
                 easyWifiManager.scan();
 //                adapter.notifyDataSetChanged();
@@ -144,14 +144,14 @@ public class WIfiActivity2 extends BaseActivity implements SwitchButton.OnChecke
             }
 
             @Override
-            public void onDisconnected(String ssid) {
-                KLog.d("onDisconnected : "+ssid);
+            public void onDisconnected(String ssid,String bssid) {
+                KLog.d("onDisconnected : "+ssid +" : "+bssid);
 //                easyWifiManager.scan();
                 adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onAuthentError(String ssid) {
+            public void onAuthentError(String ssid,String bssid) {
                 KLog.d("onAuthentError : "+ssid);
                 stopAnimation();
             }

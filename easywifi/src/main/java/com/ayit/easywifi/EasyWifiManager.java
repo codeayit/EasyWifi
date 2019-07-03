@@ -35,6 +35,7 @@ public class EasyWifiManager extends BroadcastReceiver {
     private EasyWifiStateListener easyWifiStateListener;
 
     private String currentSsid;
+    private String currentBssid;
 
 
     public void setEasyWifiStateListener(EasyWifiStateListener easyWifiStateListener) {
@@ -142,39 +143,47 @@ public class EasyWifiManager extends BroadcastReceiver {
         } else if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
             // wifi 链接状态  android.net.wifi.STATE_CHANGE
             NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+            String bssid = intent.getStringExtra(WifiManager.EXTRA_BSSID);
+            log("BSSID : " + bssid );
+            printIntent(intent);
             if (networkInfo != null) {
                 if (networkInfo.getState().equals(NetworkInfo.State.CONNECTING)) {
                     //wifi 连接中状态
                     String extraInfo = networkInfo.getExtraInfo().replaceAll("\"", "");
                     final NetworkInfo.DetailedState detailedState = networkInfo.getDetailedState();
-                    log("SSID : " + extraInfo + " : " + detailedState);
+                    log("SSID : " + extraInfo + " : " + detailedState );
+
                     if (NetworkInfo.DetailedState.CONNECTING.equals(detailedState)) {
                         //开始链接
                         if ("<unknown ssid>".equals(extraInfo)) {
                             //开始查找可用wifi
                             currentSsid = null;
+                            currentBssid = null;
                             if (easyWfifiConnectListener != null) {
                                 easyWfifiConnectListener.onScanning();
                             }
                         } else {
                             //链接特定wifi
                             currentSsid = extraInfo;
+                            currentBssid = bssid;
                             if (easyWfifiConnectListener != null) {
-                                easyWfifiConnectListener.onConnecting(extraInfo);
+                                easyWfifiConnectListener.onConnecting(extraInfo,currentBssid);
                             }
 
                         }
                     } else if (NetworkInfo.DetailedState.AUTHENTICATING.equals(detailedState)) {
                         //开始验证 特定wifi
                         currentSsid = extraInfo;
+                        currentBssid = bssid;
                         if (easyWfifiConnectListener != null) {
-                            easyWfifiConnectListener.onAuthenticating(extraInfo);
+                            easyWfifiConnectListener.onAuthenticating(extraInfo,currentBssid);
                         }
                     } else if (NetworkInfo.DetailedState.OBTAINING_IPADDR.equals(detailedState)) {
                         //正在获取id地址
                         currentSsid = extraInfo;
+                        currentBssid = bssid;
                         if (easyWfifiConnectListener != null) {
-                            easyWfifiConnectListener.onObtainingIpaddr(extraInfo);
+                            easyWfifiConnectListener.onObtainingIpaddr(extraInfo,currentBssid);
                         }
                     }
                 } else if (networkInfo.getState().equals(NetworkInfo.State.CONNECTED)) {
@@ -183,17 +192,18 @@ public class EasyWifiManager extends BroadcastReceiver {
                     String extraInfo = networkInfo.getExtraInfo().replaceAll("\"", "");
                     log("SSID : " + extraInfo);
                     currentSsid = extraInfo;
+                    currentBssid = bssid;
                     if (wifiInfo != null) {
                         //已连接的wifi 信息
                         if (easyWfifiConnectListener != null) {
-                            easyWfifiConnectListener.onConnected(extraInfo);
+                            easyWfifiConnectListener.onConnected(extraInfo,currentBssid);
                         }
                     }
                 } else if (networkInfo.getState().equals(NetworkInfo.State.DISCONNECTED)) {
                     //断开WiFi 链接
 
                     if (easyWfifiConnectListener != null) {
-                        easyWfifiConnectListener.onDisconnected(currentSsid);
+                        easyWfifiConnectListener.onDisconnected(currentSsid,currentBssid);
                     }
                 }
 
@@ -204,7 +214,7 @@ public class EasyWifiManager extends BroadcastReceiver {
             int linkWifiResult = intent.getIntExtra(WifiManager.EXTRA_SUPPLICANT_ERROR, 110);
             if (linkWifiResult == WifiManager.ERROR_AUTHENTICATING) {
                 if (easyWfifiConnectListener != null) {
-                    easyWfifiConnectListener.onAuthentError(currentSsid);
+                    easyWfifiConnectListener.onAuthentError(currentSsid,currentBssid);
                 }
             }
         }
